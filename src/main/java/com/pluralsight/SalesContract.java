@@ -6,8 +6,8 @@ public class SalesContract extends Contract {
     private double processingFee;
     private boolean wantFinance;
 
-    public SalesContract(String date, String customerName, String customerEmail, Vehicle vehicleSold, double totalPrice, double monthlyPayment, double salesTaxAmount, double recordingFee, double processingFee, boolean wantFinance) {
-        super(date, customerName, customerEmail, vehicleSold, totalPrice, monthlyPayment);
+    public SalesContract(String date, String customerName, String customerEmail, Vehicle vehicleSold, double salesTaxAmount, double recordingFee, double processingFee, boolean wantFinance) {
+        super(date, customerName, customerEmail, vehicleSold);
         this.salesTaxAmount = salesTaxAmount;
         this.recordingFee = recordingFee;
         this.processingFee = processingFee;
