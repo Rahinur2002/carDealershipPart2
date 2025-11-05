@@ -1,6 +1,6 @@
 # Project Title
 
-Car Dealership Console Application
+Car Dealership Console Application Part 2
 
 ## Description of the Project
 
