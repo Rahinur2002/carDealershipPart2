@@ -1,5 +1,6 @@
 package com.pluralsight;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Scanner;
 
@@ -198,10 +199,10 @@ public class UserInterface {
         }
     }
 
-    private void sellOrLeaseContract(){
-            System.out.println("Enter VIN: ");
-            String vinString = scanner.nextLine();
-            int vin;
+    private void sellOrLeaseContract() {
+        System.out.println("Enter VIN: ");
+        String vinString = scanner.nextLine();
+        int vin;
         try {
             vin = Integer.parseInt(vinString);
         } catch (NumberFormatException e) {
@@ -210,7 +211,7 @@ public class UserInterface {
         }
 
         Vehicle v = findVehicleByVin(vin);
-        if(v == null) {
+        if (v == null) {
             System.out.println("We currently don't have  a vehicle with that VIN at the moment");
             return;
         }
@@ -233,12 +234,32 @@ public class UserInterface {
             System.out.println("Finance? Y/N: ");
             boolean wantFinance = scanner.nextLine().trim().equalsIgnoreCase("y");
 
+            SalesContract sc = new SalesContract(date, name, email, v, 0, 0, 0, wantFinance);
+            sc.salesCalc();
 
+            cdm.saveContract(sc);
+            System.out.printf("Total: %.2f | Monthly: %.2f%n", sc.getTotalPrice(), sc.getMonthlyPayment());
         }
 
+        if (contractType.equalsIgnoreCase(("l"))) {
+            int currentYear = LocalDate.now().getYear();
+            int vehicleAge = currentYear - v.getYear();
 
+            if (vehicleAge > 3) {
+                System.out.println("Vehicle that are older than 3 years are not allowed to lease.");
+                return;
+            } else {
+            LeaseContract lc = new LeaseContract(date, name, email, v, 0, 0);
+            lc.leaseCalc();
 
+            cdm.saveContract(lc);
+            System.out.printf("Total: %.2f | Monthly: %.2f%n", lc.getTotalPrice(), lc.getMonthlyPayment());
+        }
 
+        dealership.removeVehicle(v);
+        new DealershipFileManager().saveDealership(dealership);
+        System.out.println("Vehicle removed and updated the file");
+    }
     }
 
     private Vehicle findVehicleByVin(int vin){
@@ -249,5 +270,4 @@ public class UserInterface {
         }
         return null;
     }
-
 }
