@@ -16,32 +16,16 @@ public class SalesContract extends Contract {
         return salesTaxAmount;
     }
 
-    public void setSalesTaxAmount(double salesTaxAmount) {
-        this.salesTaxAmount = salesTaxAmount;
-    }
-
     public double getRecordingFee() {
         return recordingFee;
-    }
-
-    public void setRecordingFee(double recordingFee) {
-        this.recordingFee = recordingFee;
     }
 
     public double getProcessingFee() {
         return processingFee;
     }
 
-    public void setProcessingFee(double processingFee) {
-        this.processingFee = processingFee;
-    }
-
     public boolean isWantFinance() {
         return wantFinance;
-    }
-
-    public void setWantFinance(boolean wantFinance) {
-        this.wantFinance = wantFinance;
     }
 
     public void salesCalc(){
