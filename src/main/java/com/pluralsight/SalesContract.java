@@ -46,6 +46,13 @@ public class SalesContract extends Contract {
         this.wantFinance = wantFinance;
     }
 
+    public void salesCalc(){
+        double price = getVehicleSold().getPrice();
+        this.salesTaxAmount = price * 0.05;
+        this.recordingFee = 100.00;
+        this.processingFee = price < 10000 ? 295.00 : 495.00;
+    }
+
     @Override
     public double getTotalPrice(){
         return getVehicleSold().getPrice() + salesTaxAmount + recordingFee + processingFee;

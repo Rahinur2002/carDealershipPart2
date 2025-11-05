@@ -26,6 +26,12 @@ public class LeaseContract extends Contract{
         this.leaseFee = leaseFee;
     }
 
+    public void leaseCalc() {
+        double price = getVehicleSold().getPrice();
+        this.expectedEndingValue = price * 0.50;
+        this.leaseFee = price * 0.07;
+    }
+
     @Override
     public double getTotalPrice(){
         return (getVehicleSold().getPrice() - expectedEndingValue) + leaseFee;

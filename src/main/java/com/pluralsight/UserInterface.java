@@ -26,6 +26,7 @@ public class UserInterface {
             System.out.println("7. Get all vehicles");
             System.out.println("8. Add vehicle");
             System.out.println("9. Remove vehicle");
+            System.out.println("10. Sell/Lease a vehicle");
             System.out.println("99. Quit");
 
             System.out.print("Enter your choice: ");
@@ -58,6 +59,9 @@ public class UserInterface {
                     break;
                 case "9":
                     processRemoveVehicleRequest();
+                    break;
+                case "10":
+                    sellOrLeaseContract();
                     break;
                 case "99":
                     quit = true;
@@ -192,6 +196,58 @@ public class UserInterface {
         for (Vehicle vehicle : vehicles) {
             System.out.println(vehicle.toString());
         }
+    }
+
+    private void sellOrLeaseContract(){
+            System.out.println("Enter VIN: ");
+            String vinString = scanner.nextLine();
+            int vin;
+        try {
+            vin = Integer.parseInt(vinString);
+        } catch (NumberFormatException e) {
+            System.out.println("Invalid Input, please enter as a number");
+            return;
+        }
+
+        Vehicle v = findVehicleByVin(vin);
+        if(v == null) {
+            System.out.println("We currently don't have  a vehicle with that VIN at the moment");
+            return;
+        }
+
+        System.out.println("Enter contract date (MM/dd/yyyy): ");
+        String date = scanner.nextLine().trim();
+
+        System.out.println("Enter customer name: ");
+        String name = scanner.nextLine().trim();
+
+        System.out.println("Enter customer email: ");
+        String email = scanner.nextLine().trim();
+
+        System.out.println("S for sale & L for lease: ");
+        String contractType = scanner.nextLine().trim();
+
+        ContractDataManager cdm = new ContractDataManager();
+
+        if (contractType.equalsIgnoreCase("s")) {
+            System.out.println("Finance? Y/N: ");
+            boolean wantFinance = scanner.nextLine().trim().equalsIgnoreCase("y");
+
+
+        }
+
+
+
+
+    }
+
+    private Vehicle findVehicleByVin(int vin){
+        for (Vehicle v : dealership.getAllVehicles()){
+            if(vin == v.getVin()){
+                return v;
+            }
+        }
+        return null;
     }
 
 }
